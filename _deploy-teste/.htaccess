@@ -1,0 +1,8 @@
+DirectoryIndex index.html
+Options -Indexes
+
+# Apenas para a pasta de teste /novo/: não indexar no Google enquanto valida.
+# (Remover quando o site for para a raiz como principal.)
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
