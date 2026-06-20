@@ -192,19 +192,38 @@
   }
   document.querySelectorAll("[data-particles]").forEach(initParticles);
 
-  // ── Portfólio: clique para tocar (pôster limpo, sem chrome do YouTube no repouso) ──
-  document.querySelectorAll(".pf-play[data-yt]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var id = btn.getAttribute("data-yt");
+  // ── Portfólio: vídeo que cresce com o scroll (autoplay mudo, sem texto por cima) ──
+  (function () {
+    var track = document.querySelector(".vsh[data-yt]");
+    if (!track) return;
+    var box = track.querySelector(".vsh__video");
+    var id = track.getAttribute("data-yt");
+    var loaded = false;
+    function loadVideo() {
+      if (loaded) return; loaded = true;
       var f = document.createElement("iframe");
-      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&modestbranding=1&playsinline=1";
+      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&mute=1&loop=1&playlist=" + id + "&controls=0&rel=0&modestbranding=1&playsinline=1";
       f.title = "Prévia Bellus Eventos";
-      f.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+      f.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
       f.setAttribute("allowfullscreen", "");
-      btn.appendChild(f);
-      btn.classList.add("is-playing");
-    });
-  });
+      box.appendChild(f);
+    }
+    if (reduceMotion) { loadVideo(); return; }
+    var startScale = 0.4;
+    function onScroll() {
+      var r = track.getBoundingClientRect();
+      var dist = r.height - window.innerHeight;
+      var done = Math.min(Math.max(-r.top, 0), dist);
+      var p = dist > 0 ? done / dist : 1;
+      box.style.transform = "scale(" + (startScale + (1 - startScale) * p) + ")";
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) loadVideo(); }); }, { threshold: 0.15 }).observe(track);
+    } else { loadVideo(); }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    onScroll();
+  })();
 
   // ── Formulário de disponibilidade → Supabase ────────────
   var form = document.getElementById("lead-form");
