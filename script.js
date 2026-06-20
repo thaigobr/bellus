@@ -73,7 +73,7 @@
     el.innerHTML = '<span class="tw-caret" aria-hidden="true"></span>';
     step();
   }
-  var titleEls = document.querySelectorAll(".section__title");
+  var titleEls = document.querySelectorAll(".section__title, .hero__title, .manifesto__lead");
   if (reduceMotion || !("IntersectionObserver" in window)) {
     titleEls.forEach(function (el) { el.classList.add("is-inview"); });
   } else {
