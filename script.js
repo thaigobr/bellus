@@ -290,6 +290,7 @@
         .then(function (r) {
           if (r.ok && r.body && r.body.success) {
             form.reset();
+            if (window.fbq) fbq("track", "Lead");
             setFeedback("Recebemos os seus dados. Em breve falamos com você pelo WhatsApp.", "ok");
           } else {
             var msg = (r.body && r.body.error) || "Não foi possível enviar agora.";
