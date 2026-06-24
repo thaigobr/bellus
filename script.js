@@ -29,6 +29,12 @@
   var navCta = document.querySelector(".nav__cta");
   if (navCta) navCta.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(WA_MSG);
 
+  // ── Meta Pixel: clique em qualquer WhatsApp = conversão "Contact" ──
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]') : null;
+    if (a && window.fbq) fbq("track", "Contact");
+  }, true);
+
   // ── Vídeo de fundo do hero: pausa se o usuário pediu menos movimento ──
   var heroVid = document.querySelector(".hero__video");
   if (heroVid && reduceMotion) { heroVid.removeAttribute("autoplay"); heroVid.pause(); }
