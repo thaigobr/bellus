@@ -10,7 +10,7 @@
   var SUPABASE_ANON_KEY = "sb_publishable_UhC5LHa4Ob5vSY4K5xrM5Q_LG3pllu-";
   var WHATSAPP = "5521981636666";
   // Mensagem do botão de WhatsApp: identifica que veio do site e conduz ao formulário.
-  var WA_MSG = "Olá! Vim pelo site da Bellus e gostaria de confirmar a disponibilidade da nossa data. Vou preencher o formulário de vocês no site para receber a proposta personalizada e deixar tudo organizado.";
+  var WA_MSG = "Olá! Vim pelo site da Bellus e gostaria de confirmar a disponibilidade da nossa data. Vou preencher o formulário no www.belluseventos.com.br para receber a proposta.";
 
   var reduceMotion =
     window.matchMedia &&
@@ -241,14 +241,26 @@
 
   function waFallbackLink(data) {
     var parts = [
-      "Olá! Vim pelo site da Bellus e preenchi o formulário para consultar a disponibilidade. Seguem os meus dados:",
+      "Olá! Tentei enviar pelo site da Bellus mas tive um problema no envio. Seguem meus dados para consultar a disponibilidade:",
       "Nome: " + (data.nome || ""),
       data.nomeParceiro ? "Par: " + data.nomeParceiro : "",
+      "WhatsApp: " + (data.whatsapp || ""),
+      "E-mail: " + (data.email || ""),
       "Data: " + (data.dataCasamento || ""),
       data.cidade ? "Cidade: " + data.cidade : "",
       data.local ? "Local: " + data.local : "",
+      data.convidados ? "Convidados: " + data.convidados : "",
+      data.mensagem ? "Mensagem: " + data.mensagem : "",
     ].filter(Boolean);
     return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(parts.join("\n"));
+  }
+
+  // Erro no envio: avisa, deixa o form avermelhado e abre o WhatsApp já com os dados.
+  function failToWhatsapp(data, msg) {
+    form.classList.remove("is-ok");
+    form.classList.add("is-error");
+    setFeedback((msg || "Não foi possível enviar agora.") + " Sem problema: vamos abrir o WhatsApp já com os seus dados para você concluir por lá.", "error");
+    setTimeout(function () { window.location.href = waFallbackLink(data); }, 1800);
   }
 
   if (form) {
@@ -278,6 +290,7 @@
       var originalLabel = submitBtn.textContent;
       submitBtn.textContent = "Enviando...";
       setFeedback("", null);
+      form.classList.remove("is-ok", "is-error");
 
       fetch(SUPABASE_FN_URL, {
         method: "POST",
@@ -296,16 +309,17 @@
         .then(function (r) {
           if (r.ok && r.body && r.body.success) {
             form.reset();
+            form.classList.remove("is-error");
+            form.classList.add("is-ok");
             if (window.fbq) fbq("track", "Lead");
-            setFeedback("Recebemos os seus dados. Em breve falamos com você pelo WhatsApp.", "ok");
+            setFeedback("Recebemos os seus dados! Deu tudo certo. Em breve falamos com você pelo WhatsApp.", "ok");
           } else {
             var msg = (r.body && r.body.error) || "Não foi possível enviar agora.";
-            setFeedback(msg + " Você também pode falar direto no WhatsApp.", "error");
+            failToWhatsapp(data, msg);
           }
         })
         .catch(function () {
-          window.location.href = waFallbackLink(data);
-          setFeedback("Sem conexão com o servidor. Abrindo o WhatsApp...", "error");
+          failToWhatsapp(data, "Tivemos um problema de conexão.");
         })
         .finally(function () {
           submitBtn.disabled = false;
@@ -328,7 +342,7 @@
   }
   function starRow(n) {
     var full = Math.round(n || 5), s = "";
-    for (var i = 0; i < 5; i++) s += i < full ? "★" : "☆";
+    for (var i = 0; i < 5; i++) s += '<span class="star">' + (i < full ? "★" : "☆") + "</span>";
     return s;
   }
   function renderReviews(data) {
@@ -361,4 +375,95 @@
       .then(renderReviews)
       .catch(function () { /* falhou: secao continua escondida */ });
   }
+
+  // ── Reels: modal + arrastar com mouse + tocar o próximo ──
+  var reelModal = document.getElementById("reel-modal");
+  var reelVideo = document.getElementById("reel-video");
+  var reelStrip = document.querySelector(".reels-strip");
+  if (reelModal && reelVideo && reelStrip) {
+    var reelClose = reelModal.querySelector(".reel-modal__close");
+    var reelCards = Array.prototype.slice.call(reelStrip.querySelectorAll(".reel-card[data-src]"));
+    var reelSrcs = reelCards.map(function (c) { return c.getAttribute("data-src"); });
+    var reelIdx = -1;
+
+    function openReel(i) {
+      if (i < 0 || i >= reelSrcs.length) return;
+      reelIdx = i;
+      reelVideo.src = reelSrcs[i];
+      reelModal.classList.add("is-open");
+      reelModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      var p = reelVideo.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+    function closeReel() {
+      reelVideo.pause();
+      reelVideo.removeAttribute("src");
+      reelVideo.load();
+      reelModal.classList.remove("is-open");
+      reelModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      reelIdx = -1;
+    }
+    reelCards.forEach(function (card, i) {
+      card.addEventListener("click", function () { openReel(i); });
+    });
+    // ao terminar, já toca o próximo da sequência
+    reelVideo.addEventListener("ended", function () {
+      if (reelIdx + 1 < reelSrcs.length) openReel(reelIdx + 1);
+    });
+    if (reelClose) reelClose.addEventListener("click", closeReel);
+    reelModal.addEventListener("click", function (e) { if (e.target === reelModal) closeReel(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && reelModal.classList.contains("is-open")) closeReel();
+    });
+
+    // arrastar com o mouse para rolar a faixa (touch usa scroll nativo)
+    var down = false, startX = 0, startScroll = 0, moved = false;
+    reelStrip.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse") return;
+      down = true; moved = false; startX = e.clientX; startScroll = reelStrip.scrollLeft;
+      reelStrip.classList.add("is-grabbing");
+    });
+    window.addEventListener("pointermove", function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      reelStrip.scrollLeft = startScroll - dx;
+    });
+    window.addEventListener("pointerup", function () {
+      if (down) { down = false; reelStrip.classList.remove("is-grabbing"); }
+    });
+    // se arrastou, não abre o vídeo no soltar
+    reelStrip.addEventListener("click", function (e) {
+      if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; }
+    }, true);
+
+    // setas (desktop)
+    function cardStep() {
+      var c = reelStrip.querySelector(".reel-card");
+      return c ? c.getBoundingClientRect().width + 16 : 260;
+    }
+    var navPrev = document.querySelector(".reels-nav--prev");
+    var navNext = document.querySelector(".reels-nav--next");
+    if (navPrev) navPrev.addEventListener("click", function () { reelStrip.scrollBy({ left: -cardStep(), behavior: "smooth" }); });
+    if (navNext) navNext.addEventListener("click", function () { reelStrip.scrollBy({ left: cardStep(), behavior: "smooth" }); });
+  }
+
+  // ── Botões "Seguir" no Instagram (indicador visual após o clique) ──
+  // O Instagram não permite seguir nem verificar follow a partir de outro site;
+  // isto apenas abre o perfil em nova aba e marca um check visual após o clique.
+  document.querySelectorAll("[data-follow]").forEach(function (btn) {
+    var key = "bellus_follow_" + btn.getAttribute("data-follow");
+    var label = btn.querySelector(".follow-btn__label");
+    function markFollowing() {
+      btn.classList.add("is-following");
+      if (label) label.textContent = "✓ Seguindo";
+    }
+    try { if (localStorage.getItem(key) === "1") markFollowing(); } catch (e) {}
+    btn.addEventListener("click", function () {
+      try { localStorage.setItem(key, "1"); } catch (e) {}
+      setTimeout(markFollowing, 500);
+    });
+  });
 })();
