@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /p/
+Disallow: /niver/p/
+Disallow: /thiagobellus/p/
+Disallow: /painel/
 
-Sitemap: https://belluseventos.com.br/sitemap.xml
+Sitemap: https://www.belluseventos.com.br/sitemap.xml
