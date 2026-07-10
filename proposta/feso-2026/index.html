@@ -48,6 +48,11 @@
     .parcela__v { font-family:'Cormorant Garamond',serif; font-size:1.85rem; font-weight:600; color:var(--ink); line-height:1.1; }
     .parcela__d { font-size:.74rem; color:var(--muted); }
     .parcela__mais { font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--gold); }
+    .formas { display:flex; flex-direction:column; gap:.5rem; max-width:480px; margin:1.1rem auto .2rem; text-align:left; }
+    .forma { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; padding:.55rem .85rem; border:1px solid var(--line); border-radius:6px; background:#fff; }
+    .forma__t { font-size:.82rem; color:var(--ink); }
+    .forma__v { font-size:.8rem; color:var(--muted); text-align:right; }
+    .formas__nota { font-size:.74rem; color:var(--muted); margin-top:.55rem; }
 
     table.cond { width:100%; border-collapse:collapse; font-size:.86rem; margin-bottom:1rem; }
     table.cond td { padding:.55rem .2rem; border-bottom:1px solid var(--line); vertical-align:top; }
@@ -98,7 +103,7 @@
           Thiago Cardoso Santiago Rodrigues<br />
           CNPJ 30.922.038/0001-82<br />
           Teresópolis, RJ<br />
-          (21) 98163-6666 · contato@belluseventos.com.br · belluseventos.com.br
+          WhatsApp (21) 98163-6666 · contato@belluseventos.com.br · belluseventos.com.br
         </div>
       </header>
 
@@ -119,7 +124,7 @@
           Thiago Cardoso Santiago Rodrigues<br />
           CNPJ 30.922.038/0001-82<br />
           Teresópolis, RJ<br />
-          (21) 98163-6666 · contato@belluseventos.com.br
+          WhatsApp (21) 98163-6666 · contato@belluseventos.com.br
         </div>
       </div>
 
@@ -166,20 +171,15 @@
 
       <h2>5. Investimento</h2>
       <div class="valor">
-        <div class="valor__label">Investimento em duas parcelas</div>
-        <div class="parcelas">
-          <div class="parcela">
-            <span class="parcela__q">1ª parcela</span>
-            <span class="parcela__v">R$ 3.250,00</span>
-            <span class="parcela__d">na confirmação da contratação</span>
-          </div>
-          <div class="parcela__mais">+</div>
-          <div class="parcela">
-            <span class="parcela__q">2ª parcela</span>
-            <span class="parcela__v">R$ 3.250,00</span>
-            <span class="parcela__d">no primeiro dia do serviço (17/08/2026)</span>
-          </div>
+        <div class="valor__label">Valor total do serviço</div>
+        <div class="valor__num">R$ 6.500,00</div>
+        <div class="valor__ext">seis mil e quinhentos reais</div>
+        <div class="formas">
+          <div class="forma"><span class="forma__t">À vista no Pix</span><span class="forma__v">R$ 6.500,00</span></div>
+          <div class="forma"><span class="forma__t">Duas parcelas de 50% no Pix</span><span class="forma__v">R$ 3.250,00 e R$ 3.250,00</span></div>
+          <div class="forma"><span class="forma__t">Cartão de crédito em até 3x</span><span class="forma__v">com a taxa da operadora embutida</span></div>
         </div>
+        <div class="formas__nota">As formas de pagamento acima ficam disponíveis na página de pagamento. A opção escolhida é confirmada no momento do pagamento.</div>
         <div class="valor__nota">O investimento contempla a captação nos dois dias, a montagem do set e
         iluminação, o tratamento das imagens, a entrega dos arquivos finais e brutos (RAW) via Google Drive e a
         licença de uso publicitário e institucional das imagens pelo contratante.</div>
@@ -239,7 +239,7 @@
 
       <footer class="rodape">
         Bellus Eventos · Thiago Cardoso Santiago Rodrigues · CNPJ 30.922.038/0001-82<br />
-        Teresópolis, RJ · (21) 98163-6666 ·
+        Teresópolis, RJ · WhatsApp (21) 98163-6666 ·
         contato@belluseventos.com.br · www.belluseventos.com.br
       </footer>
 
