@@ -41,11 +41,22 @@
     .valor__label { font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
     .valor__num { font-family:'Cormorant Garamond',serif; font-size:2.3rem; font-weight:600; color:var(--ink); margin:.2rem 0; }
     .valor__ext { font-size:.82rem; color:var(--muted); }
-    .valor__nota { font-size:.78rem; color:var(--muted); margin-top:.6rem; }
+    .valor__nota { font-size:.78rem; color:var(--muted); margin-top:.9rem; }
+    .parcelas { display:flex; align-items:center; justify-content:center; gap:1.4rem; margin:.4rem 0 .2rem; flex-wrap:wrap; }
+    .parcela { display:flex; flex-direction:column; gap:.1rem; min-width:180px; }
+    .parcela__q { font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); font-weight:600; }
+    .parcela__v { font-family:'Cormorant Garamond',serif; font-size:1.85rem; font-weight:600; color:var(--ink); line-height:1.1; }
+    .parcela__d { font-size:.74rem; color:var(--muted); }
+    .parcela__mais { font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--gold); }
 
     table.cond { width:100%; border-collapse:collapse; font-size:.86rem; margin-bottom:1rem; }
     table.cond td { padding:.55rem .2rem; border-bottom:1px solid var(--line); vertical-align:top; }
     table.cond td:first-child { width:34%; font-weight:600; color:var(--muted); font-size:.78rem; letter-spacing:.04em; text-transform:uppercase; padding-right:1rem; }
+
+    .pagar { margin:1.8rem 0; padding:1.3rem 1.5rem; border:1px solid var(--line); border-radius:8px; background:#faf8f4; text-align:center; }
+    .pagar__txt { font-size:.86rem; color:var(--muted); margin-bottom:.9rem; }
+    .pagar__btn { display:inline-block; background:var(--gold); color:#fff; text-decoration:none; padding:.7rem 1.6rem; border-radius:6px; font-size:.86rem; font-weight:600; letter-spacing:.02em; }
+    .pagar__url { font-size:.74rem; color:var(--muted); margin-top:.7rem; word-break:break-all; }
 
     .assin { margin-top:3rem; text-align:center; }
     .assin__linha { width:300px; margin:0 auto .5rem; border-top:1px solid var(--ink); }
@@ -82,9 +93,9 @@
           </div>
         </div>
         <div class="timbre__dados">
-          Thiago Cardoso Santiago Rodrigues ME<br />
+          Thiago Cardoso Santiago Rodrigues<br />
           CNPJ 30.922.038/0001-82<br />
-          R. Feliciano Sodré, 500, Várzea, Teresópolis, RJ, CEP 25963-083<br />
+          Teresópolis, RJ<br />
           (21) 98163-6666 · rodrigues.tc@gmail.com · belluseventos.com.br
         </div>
       </header>
@@ -103,8 +114,9 @@
         <div class="parte">
           <h3>Proponente</h3>
           <b>Bellus Eventos</b><br />
-          Thiago Cardoso Santiago Rodrigues ME<br />
+          Thiago Cardoso Santiago Rodrigues<br />
           CNPJ 30.922.038/0001-82<br />
+          Teresópolis, RJ<br />
           (21) 98163-6666 · rodrigues.tc@gmail.com
         </div>
       </div>
@@ -112,9 +124,8 @@
       <p>Prezados Senhores,</p>
       <p>Em atenção ao Pedido de Orçamento nº 2026.002582, emitido em 08/07/2026, apresentamos a
       proposta comercial da Bellus Eventos para o serviço de registro fotográfico com fins
-      publicitários descrito a seguir. A Bellus Eventos é um estúdio de fotografia e audiovisual de
-      Teresópolis, com produção própria de estúdio, iluminação e pós-produção, e responsável
-      técnico com 15 anos de experiência na área.</p>
+      publicitários descrito a seguir. A Bellus Eventos atua com produção audiovisual e fotografia em
+      Teresópolis, com responsável técnico com 15 anos de experiência na área.</p>
 
       <h2>1. Objeto</h2>
       <p>Serviço de registro fotográfico com fins publicitários referente à sessão de fotos
@@ -126,11 +137,10 @@
       <ul>
         <li>Cobertura fotográfica integral nos dois dias contratados, das 9h às 18h.</li>
         <li>Registro de até 30 (trinta) pessoas, distribuídas entre as duas datas conforme cronograma organizado pelo contratante.</li>
-        <li>Montagem de estúdio fotográfico no local, em sala indicada pelo contratante, com equipamentos de iluminação profissional adequados ao ambiente.</li>
+        <li>Montagem de set fotográfico temporário no local, em sala indicada pelo contratante, com equipamentos de iluminação profissional adequados ao ambiente.</li>
         <li>Fundo fotográfico na cor cinza.</li>
-        <li>Tratamento e edição das imagens selecionadas.</li>
-        <li>Entrega do material tratado em formato digital de alta resolução.</li>
-        <li>Disponibilização dos arquivos brutos (RAW).</li>
+        <li>Tratamento das imagens selecionadas, limitado à equalização e correção de cores.</li>
+        <li>Entrega do material tratado e dos arquivos brutos (RAW) via Google Drive, para download.</li>
       </ul>
 
       <h2>3. Entregáveis</h2>
@@ -141,18 +151,39 @@
       selecionadas e tratadas de cada participante, acompanhadas dos respectivos arquivos brutos
       (RAW). O não comparecimento de participantes dentro do período contratado não gera desconto
       nem sessão adicional.</p>
+      <p>O tratamento das imagens limita-se à equalização e correção de cores, para a entrega do
+      arquivo final. Não estão incluídas edições que modifiquem roupas, maquiagem, penteados, pele ou
+      qualquer característica da pessoa fotografada. Cada participante deve comparecer já preparado
+      para as fotos.</p>
 
-      <h2>4. Investimento</h2>
+      <h2>4. Entrega dos arquivos</h2>
+      <p>As imagens tratadas e os arquivos brutos (RAW) são disponibilizados via Google Drive, para
+      download, por prazo limitado. A nuvem serve apenas ao acesso para download; cabe ao contratante
+      baixar e armazenar os arquivos em mídia própria, como HD ou servidor, dentro do prazo
+      informado. Após esse prazo, os arquivos podem ser removidos da nuvem.</p>
+
+      <h2>5. Investimento</h2>
       <div class="valor">
-        <div class="valor__label">Valor total do serviço</div>
-        <div class="valor__num">R$ 6.500,00</div>
-        <div class="valor__ext">seis mil e quinhentos reais</div>
-        <div class="valor__nota">O valor contempla a captação nos dois dias, a montagem de estúdio e iluminação,
-        o tratamento e a edição das imagens, a entrega dos arquivos finais e brutos (RAW) e a licença de uso
-        publicitário e institucional das imagens pelo contratante.</div>
+        <div class="valor__label">Investimento em duas parcelas</div>
+        <div class="parcelas">
+          <div class="parcela">
+            <span class="parcela__q">1ª parcela</span>
+            <span class="parcela__v">R$ 3.250,00</span>
+            <span class="parcela__d">na confirmação da contratação</span>
+          </div>
+          <div class="parcela__mais">+</div>
+          <div class="parcela">
+            <span class="parcela__q">2ª parcela</span>
+            <span class="parcela__v">R$ 3.250,00</span>
+            <span class="parcela__d">no primeiro dia do serviço (17/08/2026)</span>
+          </div>
+        </div>
+        <div class="valor__nota">O investimento contempla a captação nos dois dias, a montagem do set e
+        iluminação, o tratamento das imagens, a entrega dos arquivos finais e brutos (RAW) via Google Drive e a
+        licença de uso publicitário e institucional das imagens pelo contratante.</div>
       </div>
 
-      <h2>5. Condições comerciais</h2>
+      <h2>6. Condições comerciais</h2>
       <table class="cond">
         <tr>
           <td>Pagamento</td>
@@ -160,11 +191,11 @@
         </tr>
         <tr>
           <td>Prazo de entrega</td>
-          <td>Material tratado, em formato digital de alta resolução, em até 5 dias úteis contados da conclusão da captação (18/08/2026), junto com os arquivos brutos (RAW).</td>
+          <td>Material tratado, em formato digital de alta resolução, em até 5 dias úteis contados da conclusão da captação (18/08/2026), disponibilizado junto com os arquivos brutos (RAW) via Google Drive para download.</td>
         </tr>
         <tr>
           <td>Ajustes</td>
-          <td>A entrega contempla uma rodada de ajustes finos nas imagens, solicitada em até 5 dias úteis após a entrega do material. Edições adicionais serão objeto de orçamento à parte.</td>
+          <td>A entrega contempla uma rodada de ajustes de equalização e correção de cores, solicitada em até 5 dias úteis após a entrega do material. Edições que modifiquem roupas, maquiagem, penteados ou pele não estão incluídas.</td>
         </tr>
         <tr>
           <td>Validade da proposta</td>
@@ -178,7 +209,18 @@
           <td>Uso de imagem</td>
           <td>As autorizações de uso de imagem das pessoas fotografadas são de responsabilidade do contratante, que declara obtê-las previamente à veiculação publicitária.</td>
         </tr>
+        <tr>
+          <td>Portfólio da proponente</td>
+          <td>A proponente reserva-se o direito de exibir amostras do trabalho realizado em seu portfólio e em seus canais profissionais, como site e redes sociais (por exemplo, Instagram), para divulgação da própria atividade, sem finalidade comercial de terceiros. Caso o contratante deseje restringir essa divulgação, basta informar por escrito.</td>
+        </tr>
       </table>
+
+      <div class="pagar">
+        <div class="pagar__txt">Após o aceite, o pagamento das parcelas pode ser feito de forma segura,
+        por Pix ou cartão, na página da proposta:</div>
+        <a class="pagar__btn" href="https://www.belluseventos.com.br/thiagobellus/p/feso-hctco-2026" target="_blank" rel="noopener">Acessar página de pagamento</a>
+        <div class="pagar__url">belluseventos.com.br/thiagobellus/p/feso-hctco-2026</div>
+      </div>
 
       <p>Permanecemos à disposição para qualquer esclarecimento pelos contatos indicados neste
       documento e agradecemos a oportunidade de apresentar esta proposta.</p>
@@ -190,8 +232,8 @@
       </div>
 
       <footer class="rodape">
-        Bellus Eventos · Thiago Cardoso Santiago Rodrigues ME · CNPJ 30.922.038/0001-82<br />
-        R. Feliciano Sodré, 500, Várzea, Teresópolis, RJ, CEP 25963-083 · (21) 98163-6666 ·
+        Bellus Eventos · Thiago Cardoso Santiago Rodrigues · CNPJ 30.922.038/0001-82<br />
+        Teresópolis, RJ · (21) 98163-6666 ·
         rodrigues.tc@gmail.com · www.belluseventos.com.br
       </footer>
 
